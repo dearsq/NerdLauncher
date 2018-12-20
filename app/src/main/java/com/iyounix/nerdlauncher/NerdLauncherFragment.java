@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,5 +59,25 @@ public class NerdLauncherFragment extends Fragment {
         });
 
         Log.i(TAG, "Found " + activities.size() + " activities.");
+    }
+
+    //实现 ViewHolder 来显示 activity 标签名
+    private class ActivityHolder extends RecyclerView.ViewHolder {
+        //ResolveInfo 我们经常要用到,所以用变量存起来
+        private ResolveInfo mResolveInfo;
+        private TextView mNameTextView;
+
+
+        public ActivityHolder(@NonNull View itemView) {
+            super(itemView);
+            mNameTextView = (TextView) itemView;
+        }
+
+        public void bindActivity(ResolveInfo resolveInfo) {
+            mResolveInfo = resolveInfo;
+            PackageManager pm = getActivity().getPackageManager();
+            String appName = mResolveInfo.loadLabel(pm).toString();
+            mNameTextView.setText(appName);
+        }
     }
 }
