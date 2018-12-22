@@ -59,6 +59,7 @@ public class NerdLauncherFragment extends Fragment {
         });
 
         Log.i(TAG, "Found " + activities.size() + " activities.");
+        mRecyclerView.setAdapter(new ActivityAdapter(activities));
     }
 
     //实现 ViewHolder 来显示 activity 标签名
